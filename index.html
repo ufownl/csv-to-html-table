@@ -59,8 +59,17 @@
           return "";
       }
 
+      function get_param(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+          return unescape(r[2]);
+        }
+        return null;
+      }
+
       CsvToHtmlTable.init({
-        csv_path: 'data/Health Clinics in Chicago.csv',
+        csv_path: 'data/' + get_param("file"),
         element: 'table-container', 
         allow_download: true,
         csv_options: {separator: ',', delimiter: '"'},
